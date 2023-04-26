@@ -17,11 +17,11 @@ class StudentDatabase:
             f"""
             CREATE TABLE IF NOT EXISTS {self.STUDENTS_TABLE_NAME} 
             (
-            `id` INTEGER AUTO_INCREMENT PRIMARY KEY, 
+            `id` INTEGER PRIMARY KEY, 
             `fullname` TEXT NOT NULL, 
             `birthday` TEXT NOT NULL, 
             `address` TEXT NOT NULL, 
-            `average_score` FLOAT NOT NULL, 
+            `average` FLOAT NOT NULL, 
             `phone` TEXT NOT NULL, 
             `group` TEXT NOT NULL, 
             `specialty` TEXT NOT NULL, 
