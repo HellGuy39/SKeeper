@@ -5,7 +5,9 @@ from domain.model.Student import Student
 
 
 class StudentRepository:
-    __student_dao = StudentDao()
+
+    def __init__(self, dao: StudentDao):
+        self.__student_dao = dao
 
     def add_student(self, student: Student):
         student_entity = student_to_student_entity(student)

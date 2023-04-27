@@ -4,8 +4,8 @@ from database.entity.StudentEntity import StudentEntity
 
 class StudentDao:
 
-    def __init__(self):
-        self.__database = StudentDatabase()
+    def __init__(self, database: StudentDatabase):
+        self.__database = database
 
     def insert_student(self, studentEntity: StudentEntity):
         self.__database.cursor.execute(f"""
