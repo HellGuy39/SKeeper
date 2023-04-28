@@ -1,21 +1,20 @@
 from presentation.AddMenu import AddMenu
-from presentation.Container import Container
+from presentation.Context import Context
 from presentation.MenuInterpreter import MenuInterpreter
+from presentation.SearchMenu import SearchMenu
 
 
 class MainMenu:
 
     __MAIN_MENU = {
         '1': 'Add student',
-        '2': 'Edit student',
-        '3': 'Search',
-        '4': 'Deduction',
-        '5': 'Transfer',
-        '6': 'Exit'
+        '2': 'Search',
+        '3': 'Settings',
+        '4': 'Exit'
     }
 
-    def __init__(self, container: Container):
-        self.__container = container
+    def __init__(self, context: Context):
+        self.__context = context
         self.__menu_interpreter = MenuInterpreter()
         self.__menu_interpreter.clear()
         pass
@@ -23,7 +22,7 @@ class MainMenu:
     def run(self):
         is_on_screen = True
         while is_on_screen:
-            print("Welcome to 'program name'")
+            print("Welcome to SKeeper v1.0")
             self.__menu_interpreter.print_menu(self.__MAIN_MENU)
             item = self.__menu_interpreter.read("Enter item: ", int)
             is_on_screen = self.__navigate(item)
@@ -36,17 +35,14 @@ class MainMenu:
 
     def __navigate(self, item: int) -> bool:
         if item == 1:
-            AddMenu(container=self.__container).run()
+            AddMenu(container=self.__context).run()
             return True
         elif item == 2:
+            SearchMenu(context=self.__context).run()
             return True
         elif item == 3:
             return True
         elif item == 4:
-            return True
-        elif item == 5:
-            return True
-        elif item == 6:
             return False
         else:
             return True

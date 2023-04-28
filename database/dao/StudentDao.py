@@ -52,7 +52,7 @@ class StudentDao:
 
     def search_students_by_fullname(self, fullname):
         self.__database.cursor.execute(f"""
-            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `fullname` LIKE ? 
+            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `fullname` LIKE '%' || ? || '%' 
         """, (fullname,))
         students = []
         table_rows = self.__database.cursor.fetchall()

@@ -1,10 +1,29 @@
 import os
+from domain.model import Student
 
 
 class MenuInterpreter:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def print_student(student: Student):
+        print('#' * 20)
+        print(
+            f"ID: {student.id}\n"
+            f"Fullname: {student.fullname}\n"
+            f"Birthday: {student.birthday}\n"
+            f"Address: {student.address}\n"
+            f"Average: {student.average}\n"
+            f"Phone: {student.phone}\n"
+            f"Group: {student.group}\n"
+            f"Specialty: {student.specialty}\n"
+            f"Enrollment_order: {student.enrollment_order}\n"
+            f"Allocation_order: {student.allocation_order}\n"
+            f"Allocation_reason: {student.allocation_reason}\n"
+            f"Status: {student.status}"
+        )
 
     @staticmethod
     def print_menu(menu: dict[str, str]):

@@ -1,6 +1,6 @@
-from presentation.Container import Container
+from presentation.Context import Context
 from presentation.MainMenu import MainMenu
 
 if __name__ == '__main__':
-    container = Container()
+    container = Context()
     MainMenu(container).run()

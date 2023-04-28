@@ -1,5 +1,5 @@
 from domain.model.Student import Student
-from presentation.Container import Container
+from presentation.Context import Context
 from presentation.MenuInterpreter import MenuInterpreter
 
 
@@ -9,7 +9,7 @@ class AddMenu:
         '1': 'Add'
     }
 
-    def __init__(self, container: Container):
+    def __init__(self, container: Context):
         self.__menu_interpreter = MenuInterpreter()
         self.__container = container
         pass
@@ -47,8 +47,8 @@ class AddMenu:
         group = self.__menu_interpreter.read("Enter group: ", str)
         specialty = self.__menu_interpreter.read("Enter specialty: ", str)
         enrollment_order = self.__menu_interpreter.read("Enter enrollment_order: ", str)
-        allocation_order = self.__menu_interpreter.read("Enter allocation_order: ", str)
-        allocation_reason = self.__menu_interpreter.read("Enter allocation_reason: ", str)
+        # allocation_order = self.__menu_interpreter.read("Enter allocation_order: ", str)
+        # allocation_reason = self.__menu_interpreter.read("Enter allocation_reason: ", str)
         status = self.__menu_interpreter.read("Enter status: ", str)
         self.__menu_interpreter.clear()
 
@@ -61,9 +61,9 @@ class AddMenu:
             group=group,
             specialty=specialty,
             enrollment_order=enrollment_order,
-            allocation_order=allocation_order,
-            allocation_reason=allocation_reason,
+            allocation_order="",
+            allocation_reason="",
             status=status,
         )
 
-        self.__container.addStudentUseCase.invoke(student)
+        self.__container.add_student_use_case.invoke(student)
