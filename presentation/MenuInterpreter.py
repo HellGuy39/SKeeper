@@ -1,5 +1,6 @@
 import os
 from domain.model import Student
+import re
 
 
 class MenuInterpreter:
@@ -51,6 +52,22 @@ class MenuInterpreter:
                 else:
                     result = command
                 return result
+            except ValueError:
+                print("Invalid value. Try Again")
+
+    @staticmethod
+    def read_with_regex(message: str, regex: str):
+
+        while True:
+            command = input(message)
+            try:
+                result = str(command)
+                pattern = re.compile(regex)
+
+                if pattern.match(result):
+                    return result
+                else:
+                    print("Value does not match the required format")
             except ValueError:
                 print("Invalid value. Try Again")
 

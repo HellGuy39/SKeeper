@@ -40,7 +40,7 @@ class AddMenu:
         self.__menu_interpreter.clear()
         self.__menu_interpreter.print_page_title("New student")
         fullname = self.__menu_interpreter.read("Enter fullname: ", str)
-        birthday = self.__menu_interpreter.read("Enter birthday: ", str)
+        birthday = self.__menu_interpreter.read_with_regex("Enter birthday (dd.mm.yyyy): ", r'\d{2}.\d{2}.\d{4}')
         address = self.__menu_interpreter.read("Enter address: ", str)
         average = self.__menu_interpreter.read("Enter average: ", float)
         phone = self.__menu_interpreter.read("Enter phone: ", str)
