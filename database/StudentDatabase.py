@@ -28,7 +28,7 @@ class StudentDatabase:
             `enrollment_order` TEXT NOT NULL, 
             `allocation_order` TEXT NOT NULL, 
             `allocation_reason` TEXT NOT NULL,
-            `status` TEXT NOT NULL
+            `status` INTEGER NOT NULL
             )
             """
         )

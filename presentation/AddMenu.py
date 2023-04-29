@@ -1,4 +1,4 @@
-from domain.model.Student import Student
+from domain.model.Student import Student, int_to_student_status
 from presentation.Context import Context
 from presentation.MenuInterpreter import MenuInterpreter
 
@@ -47,9 +47,9 @@ class AddMenu:
         group = self.__menu_interpreter.read("Enter group: ", str)
         specialty = self.__menu_interpreter.read("Enter specialty: ", str)
         enrollment_order = self.__menu_interpreter.read("Enter enrollment_order: ", str)
-        # allocation_order = self.__menu_interpreter.read("Enter allocation_order: ", str)
-        # allocation_reason = self.__menu_interpreter.read("Enter allocation_reason: ", str)
-        status = self.__menu_interpreter.read("Enter status: ", str)
+        status = self.__menu_interpreter.read_ranged_int(
+            "Enter status (1 - Study, 2 - Enrolled, 3 - Transferred): ", 1, 3
+        )
         self.__menu_interpreter.clear()
 
         student = Student(
@@ -63,7 +63,7 @@ class AddMenu:
             enrollment_order=enrollment_order,
             allocation_order="",
             allocation_reason="",
-            status=status,
+            status=int_to_student_status(status),
         )
 
         self.__container.add_student_use_case.invoke(student)

@@ -1,7 +1,9 @@
 from domain.model.Student import Student
 from presentation.Context import Context
+from presentation.DeductStudentMenu import DeductStudentMenu
 from presentation.EditStudentMenu import EditStudentMenu
 from presentation.MenuInterpreter import MenuInterpreter
+from presentation.TransferStudentMenu import TransferStudentMenu
 
 
 class StudentMenu:
@@ -9,7 +11,7 @@ class StudentMenu:
     __STUDENT_MENU = {
         '0': 'Back',
         '1': 'Edit',
-        '2': 'Deduction',
+        '2': 'Deduct',
         '3': 'Transfer',
     }
 
@@ -37,10 +39,10 @@ class StudentMenu:
             EditStudentMenu(self.__context).run(self.__student)
             return True
         elif item == 2:
-            self.__menu_interpreter.clear()
+            DeductStudentMenu(self.__context).run(self.__student)
             return True
         elif item == 3:
-            self.__menu_interpreter.clear()
+            TransferStudentMenu(self.__context).run(self.__student)
             return True
         else:
             self.__menu_interpreter.clear()

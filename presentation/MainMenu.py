@@ -9,8 +9,8 @@ class MainMenu:
     __MAIN_MENU = {
         '1': 'Add student',
         '2': 'Search',
-        '3': 'Settings',
-        '4': 'Exit'
+        #'3': 'Settings',
+        '0': 'Exit'
     }
 
     def __init__(self, context: Context):
@@ -34,6 +34,8 @@ class MainMenu:
         self.__menu_interpreter.print_page_title("Bye-bye")
 
     def __navigate(self, item: int) -> bool:
+        if item == 0:
+            return False
         if item == 1:
             AddMenu(container=self.__context).run()
             return True
@@ -42,8 +44,6 @@ class MainMenu:
             return True
         elif item == 3:
             return True
-        elif item == 4:
-            return False
         else:
             return True
 

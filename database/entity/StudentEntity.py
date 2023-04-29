@@ -14,4 +14,4 @@ class StudentEntity:
     enrollment_order: str = ""
     allocation_order: str = ""
     allocation_reason: str = ""
-    status: str = ""
+    status: int = 0

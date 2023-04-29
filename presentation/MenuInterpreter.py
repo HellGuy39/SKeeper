@@ -22,7 +22,7 @@ class MenuInterpreter:
             f"Enrollment_order: {student.enrollment_order}\n"
             f"Allocation_order: {student.allocation_order}\n"
             f"Allocation_reason: {student.allocation_reason}\n"
-            f"Status: {student.status}"
+            f"Status: {student.status.name}"
         )
 
     @staticmethod
@@ -55,5 +55,20 @@ class MenuInterpreter:
                 print("Invalid value. Try Again")
 
     @staticmethod
+    def read_ranged_int(message: str, start: int, end: int) -> int:
+
+        while True:
+            command = input(message)
+            try:
+                result = int(command)
+
+                if result not in range(start, end):
+                    print("The value should be from 1 to 3")
+                else:
+                    return result
+            except ValueError:
+                print("Invalid value. Try Again")
+
+    @staticmethod
     def clear():
-        os.system('clear')
+        os.system('cls||clear')

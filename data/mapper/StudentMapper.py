@@ -1,5 +1,5 @@
-from domain.model.Student import Student
 from database.entity.StudentEntity import StudentEntity
+from domain.model.Student import Student, int_to_student_status, student_status_to_int
 
 
 def student_to_student_entity(student: Student) -> StudentEntity:
@@ -15,7 +15,7 @@ def student_to_student_entity(student: Student) -> StudentEntity:
         enrollment_order=student.enrollment_order,
         allocation_order=student.allocation_order,
         allocation_reason=student.allocation_reason,
-        status=student.status,
+        status=student_status_to_int(student.status),
     )
 
 
@@ -32,5 +32,5 @@ def student_entity_to_student(studentEntity: StudentEntity) -> Student:
         enrollment_order=studentEntity.enrollment_order,
         allocation_order=studentEntity.allocation_order,
         allocation_reason=studentEntity.allocation_reason,
-        status=studentEntity.status,
+        status=int_to_student_status(studentEntity.status),
     )

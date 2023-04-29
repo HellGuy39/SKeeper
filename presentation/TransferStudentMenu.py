@@ -1,4 +1,6 @@
-from domain.model.Student import Student
+from dataclasses import replace
+
+from domain.model.Student import Student, StudentStatus
 from presentation.Context import Context
 from presentation.MenuInterpreter import MenuInterpreter
 from presentation.ResourceManager import ResourceId
@@ -31,7 +33,7 @@ class TransferStudentMenu:
             return False
         elif item == 1:
             self.__transfer(student)
-            return True
+            return False
         else:
             self.__menu_interpreter.clear()
             return True
@@ -46,3 +48,14 @@ class TransferStudentMenu:
         specialty = self.__menu_interpreter.read("Specialty: ", str)
         group = self.__menu_interpreter.read("Group: ", str)
 
+        old_student = replace(
+            student,
+            allocation_order=allocation_order,
+            allocation_reason=allocation_reason,
+            status=StudentStatus.Transferred
+        )
+        new_student = replace(student, id=0, specialty=specialty, group=group)
+
+        self.__context.edit_student_use_case.invoke(old_student)
+        self.__context.add_student_use_case.invoke(new_student)
+        self.__menu_interpreter.clear()
