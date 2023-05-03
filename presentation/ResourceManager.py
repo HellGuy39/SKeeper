@@ -142,8 +142,8 @@ class ResourceManager:
 
     __resources_en = {
         ResourceId.back.value: "Back",
-        ResourceId.enter_item.value: 'Enter item',
-        ResourceId.enter_value.value: 'Enter value',
+        ResourceId.enter_item.value: 'Enter item: ',
+        ResourceId.enter_value.value: 'Enter value: ',
 
         # Main
         ResourceId.welcome.value: 'Welcome to',
