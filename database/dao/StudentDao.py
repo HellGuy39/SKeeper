@@ -61,6 +61,17 @@ class StudentDao:
             students.append(student)
         return students
 
+    def get_students_by_status(self, status_value):
+        self.__database.cursor.execute(f"""
+            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `status` = ? 
+        """, (status_value,))
+        students = []
+        table_rows = self.__database.cursor.fetchall()
+        for row in table_rows:
+            student = self.__table_row_to_student(row)
+            students.append(student)
+        return students
+
     @staticmethod
     def __table_row_to_student(row):
         return StudentEntity(

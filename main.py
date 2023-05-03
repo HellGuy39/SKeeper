@@ -1,5 +1,5 @@
 from presentation.Context import Context
-from presentation.MainMenu import MainMenu
+from presentation.menu.MainMenu import MainMenu
 
 if __name__ == '__main__':
     container = Context()

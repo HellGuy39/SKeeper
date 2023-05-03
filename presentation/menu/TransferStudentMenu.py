@@ -2,26 +2,30 @@ from dataclasses import replace
 
 from domain.model.Student import Student, StudentStatus
 from presentation.Context import Context
-from presentation.MenuInterpreter import MenuInterpreter
 from presentation.ResourceManager import ResourceId
 
 
 class TransferStudentMenu:
 
     def __init__(self, context: Context):
-        self.__menu_interpreter = MenuInterpreter()
+        self.__menu_interpreter = context.menu_interpreter
         self.__context = context
+
+    def __on_start(self):
         self.__TRANSFER_STUDENT_MENU = {
             '0': self.__context.resource_manager.get_localized_string(ResourceId.back),
-            '1': 'Transfer',
+            '1': self.__context.resource_manager.get_localized_string(ResourceId.transfer),
         }
 
     def run(self, student: Student):
         self.__menu_interpreter.clear()
         is_on_screen = True
         while is_on_screen:
+            self.__on_start()
             self.__menu_interpreter.print_menu(self.__TRANSFER_STUDENT_MENU)
-            item = self.__menu_interpreter.read("Enter item: ", int)
+            item = self.__menu_interpreter.read(
+                self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
+            )
             is_on_screen = self.__navigate(item, student)
         self.__on_finish()
 
@@ -40,13 +44,23 @@ class TransferStudentMenu:
 
     def __transfer(self, student: Student):
         self.__menu_interpreter.clear()
-        self.__menu_interpreter.print_page_title("Transfer")
+        self.__menu_interpreter.print_page_title(
+            self.__context.resource_manager.get_localized_string(ResourceId.transfer)
+        )
 
-        allocation_order = self.__menu_interpreter.read("Allocation order: ", str)
-        allocation_reason = self.__menu_interpreter.read("Allocation reason: ", str)
+        allocation_order = self.__menu_interpreter.read(
+            self.__context, self.__context.resource_manager.get_localized_string(ResourceId.allocation_order), str
+        )
+        allocation_reason = self.__menu_interpreter.read(
+            self.__context, self.__context.resource_manager.get_localized_string(ResourceId.allocation_reason), str
+        )
 
-        specialty = self.__menu_interpreter.read("Specialty: ", str)
-        group = self.__menu_interpreter.read("Group: ", str)
+        specialty = self.__menu_interpreter.read(
+            self.__context, self.__context.resource_manager.get_localized_string(ResourceId.specialty), str
+        )
+        group = self.__menu_interpreter.read(
+            self.__context, self.__context.resource_manager.get_localized_string(ResourceId.group), str
+        )
 
         old_student = replace(
             student,

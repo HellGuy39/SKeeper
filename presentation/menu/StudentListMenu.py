@@ -1,13 +1,13 @@
 from domain.model.Student import Student, StudentStatus
 from presentation.Context import Context
-from presentation.MenuInterpreter import MenuInterpreter
-from presentation.StudentMenu import StudentMenu
+from presentation.ResourceManager import ResourceId
+from presentation.menu.StudentMenu import StudentMenu
 
 
 class StudentListMenu:
 
     def __init__(self, context: Context):
-        self.__menu_interpreter = MenuInterpreter()
+        self.__menu_interpreter = context.menu_interpreter
         self.__context = context
 
     def run(self, students: list[Student]):
@@ -17,18 +17,22 @@ class StudentListMenu:
 
         while is_on_screen:
             self.__menu_interpreter.clear()
-            self.__menu_interpreter.print_page_title("Results")
+            self.__menu_interpreter.print_page_title(
+                self.__context.resource_manager.get_localized_string(ResourceId.results)
+            )
 
-            print("0. Back")
+            print(f"0. {self.__context.resource_manager.get_localized_string(ResourceId.back)}")
 
             if len(students) == 0:
-                print("Nothing was found...")
+                print(self.__context.resource_manager.get_localized_string(ResourceId.nothing_was_found))
             else:
                 for i in range(len(sorted_students)):
                     print(
                         f"{i + 1}. {sorted_students[i].status.name} | {sorted_students[i].group} | {sorted_students[i].fullname} ")
 
-            item = self.__menu_interpreter.read("Enter item: ", int)
+            item = self.__menu_interpreter.read(
+                self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
+            )
             if item in range(0, len(sorted_students) + 1):
                 if item == 0:
                     is_on_screen = False

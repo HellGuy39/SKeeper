@@ -1,6 +1,7 @@
 from data.mapper.StudentMapper import student_to_student_entity
 from data.mapper.StudentMapper import student_entity_to_student
 from database.dao.StudentDao import StudentDao
+from database.entity.StudentEntity import StudentEntity
 from domain.model.Student import Student
 
 
@@ -21,16 +22,23 @@ class StudentRepository:
         student_entity = student_to_student_entity(student)
         self.__student_dao.update_student(student_entity)
 
+    def get_students_by_status(self, status):
+        student_entities = self.__student_dao.get_students_by_status(status.value)
+        students = self.__map_student_entities_to_students(student_entities)
+        return students
+
     def search_students_by_id(self, id: int):
         student_entities = self.__student_dao.search_students_by_id(id)
-        students = []
-        for student_entity in student_entities:
-            student = student_entity_to_student(student_entity)
-            students.append(student)
+        students = self.__map_student_entities_to_students(student_entities)
         return students
 
     def search_students_by_fullname(self, fullname: str):
         student_entities = self.__student_dao.search_students_by_fullname(fullname)
+        students = self.__map_student_entities_to_students(student_entities)
+        return students
+
+    @staticmethod
+    def __map_student_entities_to_students(student_entities: list[StudentEntity]) -> list[Student]:
         students = []
         for student_entity in student_entities:
             student = student_entity_to_student(student_entity)
