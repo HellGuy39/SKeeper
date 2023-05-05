@@ -10,16 +10,17 @@ class StudentListMenu:
         self.__menu_interpreter = context.menu_interpreter
         self.__context = context
 
-    def run(self, students: list[Student]):
+    def run(self, ids: list[int]):
         is_on_screen = True
-
-        sorted_students = self.__sort_student_list(students)
-
         while is_on_screen:
-            self.__menu_interpreter.clear()
-            self.__menu_interpreter.print_page_title(
-                self.__context.resource_manager.get_localized_string(ResourceId.results)
-            )
+            self.__on_start()
+
+            students = []
+            for i in range(len(ids)):
+                student = self.__context.get_student_by_id_use_case.invoke(ids[i])
+                students.append(student)
+
+            sorted_students = self.__sort_student_list(students)
 
             print(f"0. {self.__context.resource_manager.get_localized_string(ResourceId.back)}")
 
@@ -38,11 +39,17 @@ class StudentListMenu:
                     is_on_screen = False
                 else:
                     student = sorted_students[item - 1]
-                    StudentMenu(self.__context).run(student)
+                    StudentMenu(self.__context).run(student.id)
             else:
                 pass
 
+        self.__on_finish()
+
+    def __on_start(self):
         self.__menu_interpreter.clear()
+        self.__menu_interpreter.print_page_title(
+            self.__context.resource_manager.get_localized_string(ResourceId.results)
+        )
 
     def __on_finish(self):
         self.__menu_interpreter.clear()

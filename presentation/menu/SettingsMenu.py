@@ -9,22 +9,26 @@ class SettingsMenu:
     def __init__(self, context: Context):
         self.__menu_interpreter = context.menu_interpreter
         self.__context = context
-        self.__SETTINGS_MENU = {
-            '0': self.__context.resource_manager.get_localized_string(ResourceId.back),
-            '1': self.__context.resource_manager.get_localized_string(ResourceId.change_facility_name),
-            '2': self.__context.resource_manager.get_localized_string(ResourceId.change_language)
-        }
 
     def run(self):
-        self.__menu_interpreter.clear()
         is_on_screen = True
         while is_on_screen:
-            self.__menu_interpreter.print_menu(self.__SETTINGS_MENU)
+            self.__on_start()
             item = self.__menu_interpreter.read(
                 self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
             )
             is_on_screen = self.__navigate(item)
         self.__on_finish()
+
+    def __on_start(self):
+        self.__menu_interpreter.clear()
+        self.__menu_interpreter.print_menu(
+            {
+                '0': self.__context.resource_manager.get_localized_string(ResourceId.back),
+                '1': self.__context.resource_manager.get_localized_string(ResourceId.change_facility_name),
+                '2': self.__context.resource_manager.get_localized_string(ResourceId.change_language)
+            }
+        )
 
     def __on_finish(self):
         self.__menu_interpreter.clear()

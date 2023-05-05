@@ -27,13 +27,28 @@ class StudentRepository:
         students = self.__map_student_entities_to_students(student_entities)
         return students
 
-    def search_students_by_id(self, id: int):
-        student_entities = self.__student_dao.search_students_by_id(id)
+    def get_students_by_id(self, id: int):
+        student_entities = self.__student_dao.get_students_by_id(id)
         students = self.__map_student_entities_to_students(student_entities)
         return students
 
-    def search_students_by_fullname(self, fullname: str):
-        student_entities = self.__student_dao.search_students_by_fullname(fullname)
+    def get_students_by_fullname(self, fullname: str):
+        student_entities = self.__student_dao.get_students_by_fullname(fullname)
+        students = self.__map_student_entities_to_students(student_entities)
+        return students
+
+    def get_students_by_group(self, group: str):
+        student_entities = self.__student_dao.get_students_by_group(group)
+        students = self.__map_student_entities_to_students(student_entities)
+        return students
+
+    def get_students_by_specialty(self, specialty: str):
+        student_entities = self.__student_dao.get_students_by_specialty(specialty)
+        students = self.__map_student_entities_to_students(student_entities)
+        return students
+
+    def get_all_students(self):
+        student_entities = self.__student_dao.get_all_students()
         students = self.__map_student_entities_to_students(student_entities)
         return students
 

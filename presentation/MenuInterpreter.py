@@ -39,18 +39,69 @@ class MenuInterpreter:
         print(title)
         print('#' * 20)
 
-    def read(self, context, message: str, type: type):
+    def read(self, context, message: str, required_type: type):
         resource_manager = context.resource_manager
         while True:
             command = input(message)
             try:
-                if type == int:
+                if required_type == int:
                     result = int(command)
-                elif type == float:
+                elif required_type == float:
                     result = float(command)
                 else:
                     result = command
                 return result
+            except ValueError:
+                print(resource_manager.get_localized_string(ResourceId.invalid_value))
+
+    def read_and_format(self, context, message: str):
+        resource_manager = context.resource_manager
+        while True:
+            command = input(message)
+            try:
+                result = command
+
+                result.strip()
+
+                return re.sub(' +', ' ', result)
+            except ValueError:
+                print(resource_manager.get_localized_string(ResourceId.invalid_value))
+
+    def read_not_existed_in_list(self, context, message: str, required_type: type, value_list, error_message: str):
+        resource_manager = context.resource_manager
+        while True:
+            command = input(message)
+            try:
+                if required_type == int:
+                    result = int(command)
+                elif required_type == float:
+                    result = float(command)
+                else:
+                    result = command
+
+                if not value_list.__contains__(result):
+                    return result
+                else:
+                    print(error_message)
+            except ValueError:
+                print(resource_manager.get_localized_string(ResourceId.invalid_value))
+
+    def read_existed_in_list(self, context, message: str, required_type: type, value_list, error_message: str):
+        resource_manager = context.resource_manager
+        while True:
+            command = input(message)
+            try:
+                if required_type == int:
+                    result = int(command)
+                elif required_type == float:
+                    result = float(command)
+                else:
+                    result = command
+
+                if value_list.__contains__(result):
+                    return result
+                else:
+                    print(error_message)
             except ValueError:
                 print(resource_manager.get_localized_string(ResourceId.invalid_value))
 

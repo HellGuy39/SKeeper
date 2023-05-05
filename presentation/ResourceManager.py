@@ -28,6 +28,8 @@ class ResourceId(enum.Enum):
     settings = 105
     exit = 106
     bye_bye = 107
+    groups = 108
+    specialties = 109
 
     # Settings
     change_facility_name = 200
@@ -54,6 +56,9 @@ class ResourceId(enum.Enum):
     # Search
     search_by_fullname = 400
     search_by_id = 401
+    search_by_group = 402
+    search_by_specialty = 403
+    search_by_status = 404
 
     # Student list
     results = 500
@@ -74,6 +79,19 @@ class ResourceId(enum.Enum):
     invalid_value = 10000
     value_does_not_match = 10001
     value_should_be_in_range = 10002
+    student_with_this_id_is_already_exist = 10003
+    this_group_does_not_exist = 10004
+    this_specialty_does_not_exist = 10005
+
+    # Specialty menu
+    no_specialties = 800
+    new_specialty = 801
+    remove_specialty = 802
+
+    # Group menu
+    no_groups = 900
+    new_group = 901
+    remove_group = 902
 
 
 class ResourceManager:
@@ -87,6 +105,9 @@ class ResourceManager:
         ResourceId.invalid_value.value: 'Недопустимое значение. Попробуй ещё раз',
         ResourceId.value_does_not_match.value: 'Значение не соответствует необходимому формату',
         ResourceId.value_should_be_in_range.value: 'Значение должно быть в радиусе',
+        ResourceId.student_with_this_id_is_already_exist.value: 'Студент с таким идентификатором уже существует',
+        ResourceId.this_group_does_not_exist.value: 'Такой группы не существует',
+        ResourceId.this_specialty_does_not_exist.value: 'Такой специальности не существует',
 
         # Main
         ResourceId.welcome.value: 'Добро пожаловать в',
@@ -97,6 +118,8 @@ class ResourceManager:
         ResourceId.settings.value: 'Настройки',
         ResourceId.exit.value: 'Выйти',
         ResourceId.bye_bye.value: 'До свидания!',
+        ResourceId.groups.value: 'Группы',
+        ResourceId.specialties.value: 'Специальности',
 
         # Settings
         ResourceId.change_facility_name.value: 'Изменить название учреждения',
@@ -123,6 +146,9 @@ class ResourceManager:
         # Search
         ResourceId.search_by_fullname.value: 'Поиск по имени',
         ResourceId.search_by_id.value: 'Поиск по идентификатору',
+        ResourceId.search_by_group.value: 'Поиск по группе',
+        ResourceId.search_by_specialty.value: 'Поиск по специальности',
+        ResourceId.search_by_status.value: 'Поиск по статусу',
 
         # Student list
         ResourceId.results.value: 'Результаты',
@@ -138,6 +164,16 @@ class ResourceManager:
         ResourceId.change_fullname.value: 'Изменить полное имя',
         ResourceId.change_address.value: 'Изменить адрес',
         ResourceId.change_phone.value: 'Изменить телефон',
+
+        # Specialty menu
+        ResourceId.no_specialties.value: 'Нет специальностей',
+        ResourceId.new_specialty.value: 'Новая специальность',
+        ResourceId.remove_specialty.value: 'Удалить специальность',
+
+        # Group menu
+        ResourceId.no_groups.value: 'Нет групп',
+        ResourceId.new_group.value: 'Новая группа',
+        ResourceId.remove_group.value: 'Удалить группу',
     }
 
     __resources_en = {
@@ -154,6 +190,8 @@ class ResourceManager:
         ResourceId.settings.value: 'Settings',
         ResourceId.exit.value: 'Exit',
         ResourceId.bye_bye.value: 'Bye-bye',
+        ResourceId.groups.value: 'Groups',
+        ResourceId.specialties.value: 'Specialties',
 
         # Settings
         ResourceId.change_facility_name.value: 'Change facility name',
@@ -180,6 +218,9 @@ class ResourceManager:
         # Search
         ResourceId.search_by_fullname.value: 'Search by fullname',
         ResourceId.search_by_id.value: 'Search by id',
+        ResourceId.search_by_group.value: 'Search by group',
+        ResourceId.search_by_specialty.value: 'Search by specialty',
+        ResourceId.search_by_status.value: 'Search by status',
 
         # Student list
         ResourceId.results.value: 'Results',
@@ -201,6 +242,15 @@ class ResourceManager:
         ResourceId.value_does_not_match.value: 'Value does not match the required format',
         ResourceId.value_should_be_in_range.value: 'The value should be in range',
 
+        # Specialty menu
+        ResourceId.no_specialties.value: 'No specialties',
+        ResourceId.new_specialty.value: 'New specialty',
+        ResourceId.remove_specialty.value: 'Remove specialty',
+
+        # Group menu
+        ResourceId.no_groups.value: 'No groups',
+        ResourceId.new_group.value: 'New group',
+        ResourceId.remove_group.value: 'Remove group',
     }
 
     def __init__(self, language_state):

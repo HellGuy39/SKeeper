@@ -7,6 +7,8 @@ class StudentDatabase:
 
     DATABASE_NAME = "student_database"
     STUDENTS_TABLE_NAME = "students_table"
+    GROUPS_TABLE_NAME = "groups_table"
+    SPECIALTIES_TABLE_NAME = "specialties_table"
 
     def __init__(self):
         if platform.system() == 'Windows':
@@ -20,6 +22,8 @@ class StudentDatabase:
 
         self.cursor = self.connection.cursor()
         self.init_students_table()
+        self.init_group_table()
+        self.init_specialties_table()
 
     def init_students_table(self):
         self.cursor.execute(
@@ -42,3 +46,28 @@ class StudentDatabase:
             """
         )
         self.connection.commit()
+
+    def init_group_table(self):
+        self.cursor.execute(
+            f"""
+            CREATE TABLE IF NOT EXISTS {self.GROUPS_TABLE_NAME} 
+            (
+            `id` INTEGER PRIMARY KEY, 
+            `name` TEXT NOT NULL 
+            )
+            """
+        )
+        self.connection.commit()
+
+    def init_specialties_table(self):
+        self.cursor.execute(
+            f"""
+            CREATE TABLE IF NOT EXISTS {self.SPECIALTIES_TABLE_NAME} 
+            (
+            `id` INTEGER PRIMARY KEY, 
+            `name` TEXT NOT NULL
+            )
+            """
+        )
+        self.connection.commit()
+

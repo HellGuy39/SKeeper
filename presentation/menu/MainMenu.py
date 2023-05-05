@@ -2,8 +2,10 @@ from domain.model.Student import StudentStatus
 from presentation.Context import Context
 from presentation.ResourceManager import ResourceId
 from presentation.menu.AddMenu import AddMenu
+from presentation.menu.GroupMenu import GroupMenu
 from presentation.menu.SearchMenu import SearchMenu
 from presentation.menu.SettingsMenu import SettingsMenu
+from presentation.menu.SpecialtyMenu import SpecialtyMenu
 
 
 class MainMenu:
@@ -36,7 +38,9 @@ class MainMenu:
         self.__MAIN_MENU = {
             '1': self.__context.resource_manager.get_localized_string(ResourceId.add_student),
             '2': self.__context.resource_manager.get_localized_string(ResourceId.search),
-            '3': self.__context.resource_manager.get_localized_string(ResourceId.settings),
+            '3': self.__context.resource_manager.get_localized_string(ResourceId.groups),
+            '4': self.__context.resource_manager.get_localized_string(ResourceId.specialties),
+            '5': self.__context.resource_manager.get_localized_string(ResourceId.settings),
             '0': self.__context.resource_manager.get_localized_string(ResourceId.exit)
         }
 
@@ -47,17 +51,23 @@ class MainMenu:
         )
 
     def __navigate(self, item: int) -> bool:
-        if item == 0:
-            return False
-        if item == 1:
-            AddMenu(context=self.__context).run()
-            return True
-        elif item == 2:
-            SearchMenu(context=self.__context).run()
-            return True
-        elif item == 3:
-            SettingsMenu(context=self.__context).run()
-            return True
-        else:
-            return True
-
+        match item:
+            case 0:
+                return False
+            case 1:
+                AddMenu(context=self.__context).run()
+                return True
+            case 2:
+                SearchMenu(context=self.__context).run()
+                return True
+            case 3:
+                GroupMenu(context=self.__context).run()
+                return True
+            case 4:
+                SpecialtyMenu(context=self.__context).run()
+                return True
+            case 5:
+                SettingsMenu(context=self.__context).run()
+                return True
+            case _:
+                return True

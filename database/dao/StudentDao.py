@@ -10,10 +10,10 @@ class StudentDao:
     def insert_student(self, studentEntity: StudentEntity):
         self.__database.cursor.execute(f"""
             INSERT INTO {self.__database.STUDENTS_TABLE_NAME} 
-            (`fullname`, `birthday`, `address`, `average`, `phone`, `group`, 
+            (`id`,`fullname`, `birthday`, `address`, `average`, `phone`, `group`, 
             `specialty`, `enrollment_order`, `allocation_order`, `allocation_reason`, `status`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """, (studentEntity.fullname, studentEntity.birthday, studentEntity.address,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, (studentEntity.id, studentEntity.fullname, studentEntity.birthday, studentEntity.address,
               studentEntity.average, studentEntity.phone, studentEntity.group, studentEntity.specialty,
               studentEntity.enrollment_order, studentEntity.allocation_order, studentEntity.allocation_reason,
               studentEntity.status
@@ -39,34 +39,56 @@ class StudentDao:
         """, (studentEntity.id,))
         self.__database.connection.commit()
 
-    def search_students_by_id(self, id):
+    def get_students_by_id(self, id):
         self.__database.cursor.execute(f"""
             SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `id` = ?
         """, (id,))
-        students = []
         table_rows = self.__database.cursor.fetchall()
-        for row in table_rows:
-            student = self.__table_row_to_student(row)
-            students.append(student)
+        students = self.__table_rows_to_students(table_rows)
         return students
 
-    def search_students_by_fullname(self, fullname):
+    def get_students_by_fullname(self, fullname):
         self.__database.cursor.execute(f"""
             SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `fullname` LIKE '%' || ? || '%' 
         """, (fullname,))
-        students = []
         table_rows = self.__database.cursor.fetchall()
-        for row in table_rows:
-            student = self.__table_row_to_student(row)
-            students.append(student)
+        students = self.__table_rows_to_students(table_rows)
         return students
 
     def get_students_by_status(self, status_value):
         self.__database.cursor.execute(f"""
             SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `status` = ? 
         """, (status_value,))
-        students = []
         table_rows = self.__database.cursor.fetchall()
+        students = self.__table_rows_to_students(table_rows)
+        return students
+
+    def get_students_by_specialty(self, specialty):
+        self.__database.cursor.execute(f"""
+            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `specialty` = ? 
+        """, (specialty,))
+        table_rows = self.__database.cursor.fetchall()
+        students = self.__table_rows_to_students(table_rows)
+        return students
+
+    def get_students_by_group(self, group):
+        self.__database.cursor.execute(f"""
+            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME} WHERE `group` = ? 
+        """, (group,))
+        table_rows = self.__database.cursor.fetchall()
+        students = self.__table_rows_to_students(table_rows)
+        return students
+
+    def get_all_students(self):
+        self.__database.cursor.execute(f"""
+            SELECT * FROM {self.__database.STUDENTS_TABLE_NAME}
+        """)
+        table_rows = self.__database.cursor.fetchall()
+        students = self.__table_rows_to_students(table_rows)
+        return students
+
+    def __table_rows_to_students(self, table_rows):
+        students = []
         for row in table_rows:
             student = self.__table_row_to_student(row)
             students.append(student)
