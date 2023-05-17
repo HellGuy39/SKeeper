@@ -2,10 +2,12 @@ from data.repository.GroupRepository import GroupRepository
 from data.repository.SettingsRepository import SettingsRepository
 from data.repository.SpecialtyRepository import SpecialtyRepository
 from data.repository.StudentRepository import StudentRepository
+from data.repository.UserRepository import UserRepository
 from database.StudentDatabase import StudentDatabase
 from database.dao.GroupDao import GroupDao
 from database.dao.SpecialtyDao import SpecialtyDao
 from database.dao.StudentDao import StudentDao
+from database.dao.UserDao import UserDao
 from domain.use_cases.database.group.InsertGroupUseCase import InsertGroupUseCase
 from domain.use_cases.database.group.RemoveGroupUseCase import RemoveGroupUseCase
 from domain.use_cases.database.specialty.InsertSpecialtyUseCase import InsertSpecialtyUseCase
@@ -21,10 +23,14 @@ from domain.use_cases.database.student.GetStudentsByFullnameUseCase import Searc
 from domain.use_cases.database.student.GetStudentByIdUseCase import GetStudentByIdUseCase
 from domain.use_cases.database.group.GetAllGroupsUseCase import GetAllGroupsUseCase
 from domain.use_cases.database.specialty.GetAllSpecialtyUseCase import GetAllSpecialtyUseCase
+from domain.use_cases.database.user.GetAllUserUseCase import GetAllUsersUseCase
+from domain.use_cases.database.user.GetUserByIdUseCase import GetUserByIdUseCase
+from domain.use_cases.database.user.InsertUserUseCase import InsertUserUseCase
+from domain.use_cases.database.user.RemoveUserUseCase import RemoveUserUseCase
 from domain.use_cases.file.GetApplicatonSettignsUseCase import GetApplicationSettingsUseCase
 from domain.use_cases.file.SaveApplicationSettingsUseCase import SaveApplicationSettingsUseCase
-from presentation.MenuInterpreter import MenuInterpreter
-from presentation.ResourceManager import ResourceManager
+from presentation.utils.MenuInterpreter import MenuInterpreter
+from presentation.utils.ResourceManager import ResourceManager
 
 
 class Context:
@@ -35,7 +41,9 @@ class Context:
         student_dao = StudentDao(database)
         group_dao = GroupDao(database)
         specialty_dao = SpecialtyDao(database)
+        user_dao = UserDao(database)
 
+        user_repository = UserRepository(user_dao)
         student_repository = StudentRepository(student_dao)
         group_repository = GroupRepository(group_dao)
         specialty_repository = SpecialtyRepository(specialty_dao)
@@ -67,3 +75,8 @@ class Context:
         self.get_all_specialty_use_case = GetAllSpecialtyUseCase(specialty_repository)
         self.remove_specialty_use_case = RemoveSpecialtyUseCase(specialty_repository)
         self.insert_specialty_use_case = InsertSpecialtyUseCase(specialty_repository)
+
+        self.get_all_users_use_case = GetAllUsersUseCase(user_repository)
+        self.insert_user_use_case = InsertUserUseCase(user_repository)
+        self.remove_user_use_case = RemoveUserUseCase(user_repository)
+        self.get_user_by_id_use_case = GetUserByIdUseCase(user_repository)

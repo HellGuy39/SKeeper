@@ -1,8 +1,8 @@
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
 from presentation.menu.DeductStudentMenu import DeductStudentMenu
 from presentation.menu.EditStudentMenu import EditStudentMenu
 from presentation.menu.TransferStudentMenu import TransferStudentMenu
+from presentation.resource.ResourceId import ResourceId
 
 
 class StudentMenu:

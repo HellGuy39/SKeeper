@@ -2,7 +2,7 @@ from dataclasses import replace
 
 from domain.model.Student import StudentStatus
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
+from presentation.resource.ResourceId import ResourceId
 
 
 class DeductStudentMenu:

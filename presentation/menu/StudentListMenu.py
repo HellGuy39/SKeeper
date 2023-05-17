@@ -1,6 +1,6 @@
 from domain.model.Student import Student, StudentStatus
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
+from presentation.resource.ResourceId import ResourceId
 from presentation.menu.StudentMenu import StudentMenu
 
 
@@ -28,8 +28,17 @@ class StudentListMenu:
                 print(self.__context.resource_manager.get_localized_string(ResourceId.nothing_was_found))
             else:
                 for i in range(len(sorted_students)):
-                    print(
-                        f"{i + 1}. {sorted_students[i].status.name} | {sorted_students[i].group} | {sorted_students[i].fullname} ")
+
+                    message = f"{i + 1}. {sorted_students[i].status.name} | " \
+                              f"{sorted_students[i].group} | " \
+                              f"{sorted_students[i].fullname}"
+
+                    if sorted_students[i].status == StudentStatus.Study:
+                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Cyan)
+                    elif sorted_students[i].status == StudentStatus.Enrolled:
+                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Fail)
+                    elif sorted_students[i].status == StudentStatus.Transferred:
+                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Blue)
 
             item = self.__menu_interpreter.read(
                 self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int

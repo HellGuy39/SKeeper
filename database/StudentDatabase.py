@@ -1,29 +1,25 @@
 import sqlite3
-import platform
-import os
+
+from common.FileProvider import FileProvider
 
 
 class StudentDatabase:
 
     DATABASE_NAME = "student_database"
+    USERS_TABLE_NAME = "users_table"
     STUDENTS_TABLE_NAME = "students_table"
     GROUPS_TABLE_NAME = "groups_table"
     SPECIALTIES_TABLE_NAME = "specialties_table"
 
     def __init__(self):
-        if platform.system() == 'Windows':
-            dir = os.getenv('APPDATA')
-            path = os.path.join(dir, 'SKeeper')
-            os.makedirs(path, exist_ok=True)
 
-            self.connection = sqlite3.connect(os.getenv('APPDATA') + '/SKeeper/' + self.DATABASE_NAME)
-        else:
-            self.connection = sqlite3.connect(self.DATABASE_NAME)
+        self.connection = sqlite3.connect(FileProvider.get_file_path(filename=self.DATABASE_NAME))
 
         self.cursor = self.connection.cursor()
         self.init_students_table()
         self.init_group_table()
         self.init_specialties_table()
+        self.init_user_table()
 
     def init_students_table(self):
         self.cursor.execute(
@@ -66,6 +62,20 @@ class StudentDatabase:
             (
             `id` INTEGER PRIMARY KEY, 
             `name` TEXT NOT NULL
+            )
+            """
+        )
+        self.connection.commit()
+
+    def init_user_table(self):
+        self.cursor.execute(
+            f"""
+            CREATE TABLE IF NOT EXISTS {self.USERS_TABLE_NAME} 
+            (
+            `id` INTEGER PRIMARY KEY, 
+            `login` TEXT NOT NULL,
+            `password` TEXT NOT NULL,
+            `role` INTEGER NOT NULL
             )
             """
         )

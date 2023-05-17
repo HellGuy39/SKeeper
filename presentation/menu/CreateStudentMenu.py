@@ -1,9 +1,10 @@
-from domain.model.Student import Student, int_to_student_status, StudentStatus
+from domain.model.Student import Student, StudentStatus
+from domain.model.User import UserRole
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
+from presentation.resource.ResourceId import ResourceId
 
 
-class AddMenu:
+class CreateStudentMenu:
 
     def __init__(self, context: Context):
         self.__context = context
@@ -14,18 +15,21 @@ class AddMenu:
         while is_on_screen:
             self.__on_start()
             item = self.__menu_interpreter.read(
-                self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
+                context=self.__context,
+                message=self.__context.resource_manager.get_localized_string(ResourceId.enter_item),
+                required_type=int
             )
             is_on_screen = self.__navigate(item)
         self.__on_finish()
 
     def __on_start(self):
         self.__menu_interpreter.clear()
-        self.__ADD_MENU = {
-            '0': self.__context.resource_manager.get_localized_string(ResourceId.back),
-            '1': self.__context.resource_manager.get_localized_string(ResourceId.add_student)
-        }
-        self.__menu_interpreter.print_menu(self.__ADD_MENU)
+        self.__menu_interpreter.print_menu(
+            {
+                '0': self.__context.resource_manager.get_localized_string(ResourceId.back),
+                '1': self.__context.resource_manager.get_localized_string(ResourceId.add_student)
+            }
+        )
 
     def __on_finish(self):
         self.__menu_interpreter.clear()
@@ -39,6 +43,13 @@ class AddMenu:
                 return True
             case _:
                 return True
+
+    def __check_access_level(self, user_id: int) -> bool:
+        user_id = self.__context.get_user_by_id_use_case.invoke(user_id)
+        if user_id.role is UserRole.Edit:
+            return True
+        else:
+            return False
 
     def __add_student(self):
         self.__menu_interpreter.clear()

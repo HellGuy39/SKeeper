@@ -1,8 +1,8 @@
 import os
-from domain.model import Student
 import re
 
-from presentation.ResourceManager import ResourceId
+from domain.model import Student
+from presentation.resource.ResourceId import ResourceId
 
 
 class MenuInterpreter:
@@ -10,9 +10,15 @@ class MenuInterpreter:
     def __init__(self):
         pass
 
+    # def print_colorized(self, message, color_schema: ColorSchema = ColorSchema.default):
+    #     if platform.system() == 'Windows':
+    #         print(message)
+    #     else:
+    #         print(message)
+
     def print_student(self, context, student: Student):
         resource_manager = context.resource_manager
-        print('#' * 20)
+        self.print_divider()
         print(
             f"{resource_manager.get_localized_string(ResourceId.id)}{student.id}\n"
             f"{resource_manager.get_localized_string(ResourceId.fullname)}{student.fullname}\n"
@@ -29,15 +35,15 @@ class MenuInterpreter:
         )
 
     def print_menu(self, menu: dict[str, str]):
-        print('#' * 20)
+        self.print_divider()
         for key, value in menu.items():
             print(f"{key}. {value}")
-        print('#' * 20)
+        self.print_divider()
 
     def print_page_title(self, title: str):
-        print('#' * 20)
+        self.print_divider()
         print(title)
-        print('#' * 20)
+        self.print_divider()
 
     def read(self, context, message: str, required_type: type):
         resource_manager = context.resource_manager
@@ -135,5 +141,16 @@ class MenuInterpreter:
             except ValueError:
                 print(resource_manager.get_localized_string(ResourceId.invalid_value))
 
+    def print_divider(self):
+        print('#' * 20)
+
     def clear(self):
         os.system('cls||clear')
+
+    def exit_program(self, context):
+        resource_manager = context.resource_manager
+        self.clear()
+        self.print_page_title(
+            resource_manager.get_localized_string(ResourceId.bye_bye)
+        )
+        exit()

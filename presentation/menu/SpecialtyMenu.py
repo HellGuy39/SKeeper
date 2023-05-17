@@ -1,6 +1,6 @@
 from domain.model.Specialty import Specialty
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
+from presentation.resource.ResourceId import ResourceId
 
 
 class SpecialtyMenu:

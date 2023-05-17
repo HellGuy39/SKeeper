@@ -1,7 +1,7 @@
 from domain.model.Student import Student, int_to_student_status
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
 from presentation.menu.StudentListMenu import StudentListMenu
+from presentation.resource.ResourceId import ResourceId
 
 
 class SearchMenu:

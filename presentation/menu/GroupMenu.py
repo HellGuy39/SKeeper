@@ -1,6 +1,6 @@
 from domain.model.Group import Group
 from presentation.Context import Context
-from presentation.ResourceManager import ResourceId
+from presentation.resource.ResourceId import ResourceId
 
 
 class GroupMenu:
