@@ -12,7 +12,7 @@ class UserDao:
             f"""
             INSERT INTO {self.__database.USERS_TABLE_NAME} 
             (`login`, `password`, `role`) 
-            VALUES (?, ?, ?);
+            VALUES (?, ?, ?)
             """,
             (userEntity.login, userEntity.password, userEntity.role, )
         )

@@ -1,5 +1,4 @@
 from presentation.resource.ResourceId import ResourceId
-
 resources_en = {
     # Global
     ResourceId.back.value: "Back",
@@ -105,4 +104,27 @@ resources_en = {
     ResourceId.list_of_users.value: 'List of users',
     ResourceId.add_user.value: 'Add user',
     ResourceId.remove_user.value: 'Remove user',
+
+    # Journal
+    ResourceId.journal.value: 'Journal',
+    ResourceId.subjects.value: 'Subjects',
+    ResourceId.add_subject.value: 'Add subject',
+    ResourceId.remove_subject.value: 'Remove subject',
+    ResourceId.you_do_not_have_any_subjects.value: "You don't have any subjects",
+    ResourceId.enter_subject_name.value: 'Enter subject name: ',
+
+    # Subject
+    ResourceId.events.value: 'Events',
+    ResourceId.add_event.value: 'Add event',
+    ResourceId.remove_event.value: 'Remove event',
+    ResourceId.you_do_not_have_any_events.value: "You don't have any events",
+    ResourceId.enter_event_name.value: 'Enter event name: ',
+    ResourceId.enter_event_date.value: 'Enter event date (dd.mm.yyyy): ',
+
+    # Subject event edit
+    ResourceId.add_mark.value: 'Add mark',
+    ResourceId.enter_student_id: 'Enter student id: ',
+    ResourceId.student_with_this_id_does_not_exist: "Student with this ID doesn't exist",
+    ResourceId.enter_mark.value: 'Enter mark: '
+
 }

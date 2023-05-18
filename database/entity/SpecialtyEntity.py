@@ -5,3 +5,11 @@ from dataclasses import dataclass
 class SpecialtyEntity:
     id: int = 0
     name: str = ""
+
+
+SPECIALTY_SCHEMA = """
+(
+`id` INTEGER PRIMARY KEY, 
+`name` TEXT NOT NULL
+)
+"""

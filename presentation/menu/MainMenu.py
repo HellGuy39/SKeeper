@@ -4,6 +4,7 @@ from domain.model.Student import StudentStatus
 from presentation.Context import Context
 from presentation.menu.CreateStudentMenu import CreateStudentMenu
 from presentation.menu.GroupMenu import GroupMenu
+from presentation.menu.JournalMenu import JournalMenu
 from presentation.menu.LoginMenu import LoginMenu
 from presentation.menu.SearchMenu import SearchMenu
 from presentation.menu.SettingsMenu import SettingsMenu
@@ -38,9 +39,8 @@ class MainMenu:
 
     def __on_start(self):
         settings = self.__context.get_application_settings_use_case.invoke()
-        user = self.__context.get_user_by_id_use_case.invoke(settings.userId)
 
-        print('#' * 20)
+        self.__menu_interpreter.print_divider()
         print(f"{self.__context.resource_manager.get_localized_string(ResourceId.facility)}: "
               f"{settings.nameOfFacility}")
         print(f"{self.__context.resource_manager.get_localized_string(ResourceId.number_of_students)}: "
@@ -50,9 +50,10 @@ class MainMenu:
             '2': self.__context.resource_manager.get_localized_string(ResourceId.search),
             '3': self.__context.resource_manager.get_localized_string(ResourceId.groups),
             '4': self.__context.resource_manager.get_localized_string(ResourceId.specialties),
-            '5': self.__context.resource_manager.get_localized_string(ResourceId.settings),
-            '6': self.__context.resource_manager.get_localized_string(ResourceId.user_manager),
-            '7': self.__context.resource_manager.get_localized_string(ResourceId.change_user),
+            '5': self.__context.resource_manager.get_localized_string(ResourceId.journal),
+            '6': self.__context.resource_manager.get_localized_string(ResourceId.settings),
+            '7': self.__context.resource_manager.get_localized_string(ResourceId.user_manager),
+            '8': self.__context.resource_manager.get_localized_string(ResourceId.change_user),
             '0': self.__context.resource_manager.get_localized_string(ResourceId.exit_program)
         })
 
@@ -64,32 +65,45 @@ class MainMenu:
 
     def __navigate(self, item: int) -> bool:
         match item:
+
             case 0:
                 self.__menu_interpreter.exit_program(context=self.__context)
                 return True
+
             case 1:
                 CreateStudentMenu(context=self.__context).run()
                 return True
+
             case 2:
                 SearchMenu(context=self.__context).run()
                 return True
+
             case 3:
                 GroupMenu(context=self.__context).run()
                 return True
+
             case 4:
                 SpecialtyMenu(context=self.__context).run()
                 return True
+
             case 5:
+                JournalMenu(context=self.__context).run()
+                return True
+
+            case 6:
                 SettingsMenu(context=self.__context).run()
                 return True
-            case 6:
+
+            case 7:
                 UserManagerMenu(context=self.__context).run()
                 return True
-            case 7:
+
+            case 8:
                 settings = self.__context.get_application_settings_use_case.invoke()
                 updated_settings = replace(settings, userId=-1)
                 self.__context.save_application_settings_use_case.invoke(updated_settings)
                 LoginMenu(self.__context).run()
                 return True
+
             case _:
                 return True

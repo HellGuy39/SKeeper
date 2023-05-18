@@ -107,4 +107,27 @@ resources_ru = {
     ResourceId.list_of_users.value: 'Список пользователей',
     ResourceId.add_user.value: 'Добавить пользователя',
     ResourceId.remove_user.value: 'Удалить пользователя',
+
+    # Journal
+    ResourceId.journal.value: 'Журнал',
+    ResourceId.subjects.value: 'Предметы',
+    ResourceId.add_subject.value: 'Добавить предмет',
+    ResourceId.remove_subject.value: 'Удалить предмет',
+    ResourceId.you_do_not_have_any_subjects.value: "У вас нет никаких предметов",
+    ResourceId.enter_subject_name.value: 'Введите имя предмета: ',
+
+    # Subject
+    ResourceId.events.value: 'События',
+    ResourceId.add_event.value: 'Добавить событие',
+    ResourceId.remove_event.value: 'Удалить событие',
+    ResourceId.you_do_not_have_any_events.value: "У вас нет никаких событий",
+    ResourceId.enter_event_name.value: 'Введите имя события: ',
+    ResourceId.enter_event_date.value: 'Введите дату события (дд.мм.гггг): ',
+
+    # Subject event edit
+    ResourceId.add_mark.value: 'Добавить оценку',
+    ResourceId.enter_student_id: 'Введите идентификатор студента: ',
+    ResourceId.student_with_this_id_does_not_exist: "Студента с данным идентификатором не сущесвует",
+    ResourceId.enter_mark.value: 'Введите оценку: '
+
 }

@@ -30,7 +30,9 @@ class StudentMenu:
         while is_on_screen:
             self.__on_start()
             item = self.__menu_interpreter.read(
-                self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
+                context=self.__context,
+                message=self.__context.resource_manager.get_localized_string(ResourceId.enter_item),
+                required_type=int
             )
             is_on_screen = self.__navigate(item)
         self.__on_finish()

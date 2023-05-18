@@ -1,6 +1,10 @@
 import sqlite3
 
 from common.FileProvider import FileProvider
+from database.entity.GroupEntity import GROUP_SCHEMA
+from database.entity.SpecialtyEntity import SPECIALTY_SCHEMA
+from database.entity.StudentEntity import STUDENT_SCHEMA
+from database.entity.UserEntity import USER_SCHEMA
 
 
 class StudentDatabase:
@@ -12,10 +16,9 @@ class StudentDatabase:
     SPECIALTIES_TABLE_NAME = "specialties_table"
 
     def __init__(self):
-
         self.connection = sqlite3.connect(FileProvider.get_file_path(filename=self.DATABASE_NAME))
-
         self.cursor = self.connection.cursor()
+
         self.init_students_table()
         self.init_group_table()
         self.init_specialties_table()
@@ -24,21 +27,7 @@ class StudentDatabase:
     def init_students_table(self):
         self.cursor.execute(
             f"""
-            CREATE TABLE IF NOT EXISTS {self.STUDENTS_TABLE_NAME} 
-            (
-            `id` INTEGER PRIMARY KEY, 
-            `fullname` TEXT NOT NULL, 
-            `birthday` TEXT NOT NULL, 
-            `address` TEXT NOT NULL, 
-            `average` FLOAT NOT NULL, 
-            `phone` TEXT NOT NULL, 
-            `group` TEXT NOT NULL, 
-            `specialty` TEXT NOT NULL, 
-            `enrollment_order` TEXT NOT NULL, 
-            `allocation_order` TEXT NOT NULL, 
-            `allocation_reason` TEXT NOT NULL,
-            `status` INTEGER NOT NULL
-            )
+            CREATE TABLE IF NOT EXISTS {self.STUDENTS_TABLE_NAME} {STUDENT_SCHEMA}
             """
         )
         self.connection.commit()
@@ -46,11 +35,7 @@ class StudentDatabase:
     def init_group_table(self):
         self.cursor.execute(
             f"""
-            CREATE TABLE IF NOT EXISTS {self.GROUPS_TABLE_NAME} 
-            (
-            `id` INTEGER PRIMARY KEY, 
-            `name` TEXT NOT NULL 
-            )
+            CREATE TABLE IF NOT EXISTS {self.GROUPS_TABLE_NAME} {GROUP_SCHEMA}
             """
         )
         self.connection.commit()
@@ -58,11 +43,7 @@ class StudentDatabase:
     def init_specialties_table(self):
         self.cursor.execute(
             f"""
-            CREATE TABLE IF NOT EXISTS {self.SPECIALTIES_TABLE_NAME} 
-            (
-            `id` INTEGER PRIMARY KEY, 
-            `name` TEXT NOT NULL
-            )
+            CREATE TABLE IF NOT EXISTS {self.SPECIALTIES_TABLE_NAME} {SPECIALTY_SCHEMA}
             """
         )
         self.connection.commit()
@@ -70,14 +51,7 @@ class StudentDatabase:
     def init_user_table(self):
         self.cursor.execute(
             f"""
-            CREATE TABLE IF NOT EXISTS {self.USERS_TABLE_NAME} 
-            (
-            `id` INTEGER PRIMARY KEY, 
-            `login` TEXT NOT NULL,
-            `password` TEXT NOT NULL,
-            `role` INTEGER NOT NULL
-            )
+            CREATE TABLE IF NOT EXISTS {self.USERS_TABLE_NAME} {USER_SCHEMA}
             """
         )
         self.connection.commit()
-

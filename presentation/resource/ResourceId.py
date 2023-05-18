@@ -2,11 +2,20 @@ import enum
 
 
 class ResourceId(enum.Enum):
+
     # Global
     back = 1
     enter_item = 2
     enter_value = 3
     exit_program = 4
+
+    # Error
+    invalid_value = 10000
+    value_does_not_match = 10001
+    value_should_be_in_range = 10002
+    student_with_this_id_is_already_exist = 10003
+    this_group_does_not_exist = 10004
+    this_specialty_does_not_exist = 10005
 
     # Main
     welcome = 100
@@ -71,14 +80,6 @@ class ResourceId(enum.Enum):
     change_address = 702
     change_phone = 703
 
-    # Error
-    invalid_value = 10000
-    value_does_not_match = 10001
-    value_should_be_in_range = 10002
-    student_with_this_id_is_already_exist = 10003
-    this_group_does_not_exist = 10004
-    this_specialty_does_not_exist = 10005
-
     # Specialty menu
     no_specialties = 800
     new_specialty = 801
@@ -101,3 +102,25 @@ class ResourceId(enum.Enum):
     list_of_users = 1300
     add_user = 1301
     remove_user = 1302
+
+    # Journal
+    journal = 1400
+    subjects = 1401
+    add_subject = 1402
+    remove_subject = 1403
+    you_do_not_have_any_subjects = 1404
+    enter_subject_name = 1405
+
+    # Subject
+    events = 1500
+    add_event = 1501
+    remove_event = 1502
+    you_do_not_have_any_events = 1503
+    enter_event_name = 1504
+    enter_event_date = 1505
+
+    # Subject event edit
+    add_mark = 1601
+    enter_student_id = 1602
+    student_with_this_id_does_not_exist = 1603
+    enter_mark = 1604

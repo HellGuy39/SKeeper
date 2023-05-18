@@ -5,3 +5,11 @@ from dataclasses import dataclass
 class GroupEntity:
     id: int = 0
     name: str = ""
+
+
+GROUP_SCHEMA = """
+(
+`id` INTEGER PRIMARY KEY, 
+`name` TEXT NOT NULL 
+)
+"""

@@ -1,15 +1,26 @@
 from data.repository.GroupRepository import GroupRepository
+from data.repository.JournalRepository import JournalRepository
 from data.repository.SettingsRepository import SettingsRepository
 from data.repository.SpecialtyRepository import SpecialtyRepository
 from data.repository.StudentRepository import StudentRepository
 from data.repository.UserRepository import UserRepository
+from database.JournalDatabase import JournalDatabase
 from database.StudentDatabase import StudentDatabase
 from database.dao.GroupDao import GroupDao
+from database.dao.JournalDao import JournalDao
 from database.dao.SpecialtyDao import SpecialtyDao
 from database.dao.StudentDao import StudentDao
 from database.dao.UserDao import UserDao
 from domain.use_cases.database.group.InsertGroupUseCase import InsertGroupUseCase
 from domain.use_cases.database.group.RemoveGroupUseCase import RemoveGroupUseCase
+from domain.use_cases.database.journal.GetAllSubjectEventsUseCase import GetAllSubjectEventsUseCase
+from domain.use_cases.database.journal.GetAllSubjectsUseCase import GetAllSubjectsUseCase
+from domain.use_cases.database.journal.GetSubjectEventByIdUseCase import GetSubjectEventByIdUseCase
+from domain.use_cases.database.journal.InsertSubjectEventUseCase import InsertSubjectEventUseCase
+from domain.use_cases.database.journal.InsertSubjectUseCase import InsertSubjectUseCase
+from domain.use_cases.database.journal.RemoveSubjectEventUseCase import RemoveSubjectEventUseCase
+from domain.use_cases.database.journal.RemoveSubjectUseCase import RemoveSubjectUseCase
+from domain.use_cases.database.journal.UpdateSubjectEventUseCase import UpdateSubjectEventUseCase
 from domain.use_cases.database.specialty.InsertSpecialtyUseCase import InsertSpecialtyUseCase
 from domain.use_cases.database.specialty.RemoveSpecialtyUseCase import RemoveSpecialtyUseCase
 from domain.use_cases.database.student.AddStudentUseCase import AddStudentUseCase
@@ -36,17 +47,20 @@ from presentation.utils.ResourceManager import ResourceManager
 class Context:
 
     def __init__(self):
-        database = StudentDatabase()
+        student_database = StudentDatabase()
+        journal_database = JournalDatabase()
 
-        student_dao = StudentDao(database)
-        group_dao = GroupDao(database)
-        specialty_dao = SpecialtyDao(database)
-        user_dao = UserDao(database)
+        student_dao = StudentDao(student_database)
+        group_dao = GroupDao(student_database)
+        specialty_dao = SpecialtyDao(student_database)
+        user_dao = UserDao(student_database)
+        journal_dao = JournalDao(journal_database)
 
         user_repository = UserRepository(user_dao)
         student_repository = StudentRepository(student_dao)
         group_repository = GroupRepository(group_dao)
         specialty_repository = SpecialtyRepository(specialty_dao)
+        journal_repository = JournalRepository(journal_dao)
         settings_repository = SettingsRepository()
 
         self.resource_manager = ResourceManager(
@@ -80,3 +94,12 @@ class Context:
         self.insert_user_use_case = InsertUserUseCase(user_repository)
         self.remove_user_use_case = RemoveUserUseCase(user_repository)
         self.get_user_by_id_use_case = GetUserByIdUseCase(user_repository)
+
+        self.get_all_subjects_use_case = GetAllSubjectsUseCase(journal_repository)
+        self.get_all_subject_events_use_case = GetAllSubjectEventsUseCase(journal_repository)
+        self.insert_subject_use_case = InsertSubjectUseCase(journal_repository)
+        self.insert_subject_event_use_case = InsertSubjectEventUseCase(journal_repository)
+        self.get_subject_event_by_id_use_case = GetSubjectEventByIdUseCase(journal_repository)
+        self.update_subject_event_use_case = UpdateSubjectEventUseCase(journal_repository)
+        self.remove_subject_use_case = RemoveSubjectUseCase(journal_repository)
+        self.remove_subject_event_use_case = RemoveSubjectEventUseCase(journal_repository)

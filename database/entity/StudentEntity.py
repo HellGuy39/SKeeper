@@ -15,3 +15,21 @@ class StudentEntity:
     allocation_order: str = ""
     allocation_reason: str = ""
     status: int = 0
+
+
+STUDENT_SCHEMA = """
+(
+`id` INTEGER PRIMARY KEY, 
+`fullname` TEXT NOT NULL, 
+`birthday` TEXT NOT NULL, 
+`address` TEXT NOT NULL, 
+`average` FLOAT NOT NULL, 
+`phone` TEXT NOT NULL, 
+`group` TEXT NOT NULL, 
+`specialty` TEXT NOT NULL, 
+`enrollment_order` TEXT NOT NULL, 
+`allocation_order` TEXT NOT NULL, 
+`allocation_reason` TEXT NOT NULL,
+`status` INTEGER NOT NULL
+)
+"""

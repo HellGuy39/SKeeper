@@ -34,14 +34,16 @@ class StudentListMenu:
                               f"{sorted_students[i].fullname}"
 
                     if sorted_students[i].status == StudentStatus.Study:
-                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Cyan)
+                        print(message)
                     elif sorted_students[i].status == StudentStatus.Enrolled:
-                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Fail)
+                        print(message)
                     elif sorted_students[i].status == StudentStatus.Transferred:
-                        self.__menu_interpreter.print_colorized(message=message, color=Colors.Blue)
+                        print(message)
 
             item = self.__menu_interpreter.read(
-                self.__context, self.__context.resource_manager.get_localized_string(ResourceId.enter_item), int
+                context=self.__context,
+                message=self.__context.resource_manager.get_localized_string(ResourceId.enter_item),
+                required_type=int
             )
             if item in range(0, len(sorted_students) + 1):
                 if item == 0:

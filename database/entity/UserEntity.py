@@ -7,3 +7,13 @@ class UserEntity:
     login: str = ""
     password: str = ""
     role: int = 1
+
+
+USER_SCHEMA = """
+(
+`id` INTEGER PRIMARY KEY, 
+`login` TEXT NOT NULL,
+`password` TEXT NOT NULL,
+`role` INTEGER NOT NULL
+)
+"""

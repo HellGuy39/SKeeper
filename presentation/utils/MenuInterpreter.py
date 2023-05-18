@@ -10,12 +10,6 @@ class MenuInterpreter:
     def __init__(self):
         pass
 
-    # def print_colorized(self, message, color_schema: ColorSchema = ColorSchema.default):
-    #     if platform.system() == 'Windows':
-    #         print(message)
-    #     else:
-    #         print(message)
-
     def print_student(self, context, student: Student):
         resource_manager = context.resource_manager
         self.print_divider()
@@ -35,6 +29,14 @@ class MenuInterpreter:
         )
 
     def print_menu(self, menu: dict[str, str]):
+        self.print_divider()
+        for key, value in menu.items():
+            print(f"{key}. {value}")
+        self.print_divider()
+
+    def print_menu_with_title(self, title: str, menu: dict[str, str]):
+        self.print_divider()
+        print(title)
         self.print_divider()
         for key, value in menu.items():
             print(f"{key}. {value}")

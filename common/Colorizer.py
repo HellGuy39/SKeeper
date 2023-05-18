@@ -12,7 +12,7 @@ class Colorizer:
             return
 
         if platform.system() == 'Windows':
-            os.system(f'color {Colorizer.__schema_to_windows_color_format(schema)}f')
+            os.system(f'color {Colorizer.__schema_to_windows_color_format(schema)}')
         else:
             pass
 
